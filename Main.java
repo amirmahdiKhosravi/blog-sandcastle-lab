@@ -52,9 +52,9 @@ public class Main {
         c.close();
     }
 
-    public void createUser(User u) throws SQLException {
+    public void createUser(User user) throws SQLException {
         String sql = String.format("INSERT INTO blog.user (id, name, age) VALUES (%d, '%s', %d)",
-                u.getId(), u.getName(), u.getAge());
+                user.id, user.name, user.age);
 
         Connection c = getConnection();
         Statement stmt = c.createStatement();
@@ -93,9 +93,9 @@ public class Main {
         try {
             m.refreshDatabase();
 
-            m.createUser(m.new User(0, "Pranjal", 30));
-            m.createUser(m.new User(1, "Mitu", 27));
-            
+            m.createUser(m.new User(0, "Pranjal", 5));
+            m.createUser(m.new User(1, "Karl", 7));
+
             m.printUsers();
 
         } catch (SQLException e) {
@@ -104,37 +104,13 @@ public class Main {
     }
 
     public class User {
-        private int id;
-        private String name;
-        private int age;
+        public int id;
+        public String name;
+        public int age;
 
         public User(int id, String name, int age) {
             this.id = id;
             this.name = name;
-            this.age = age;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public int getAge() {
-            return age;
-        }
-
-        public void setAge(int age) {
             this.age = age;
         }
     }
