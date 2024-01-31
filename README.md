@@ -3,4 +3,5 @@
 1. Open terminal
 2. Run ```git clone https://github.com/pranjalcborty/blog-sandcastle.git```
 3. ```cd``` into ```blog-sandcastle```
-4. Run ```java -cp postgresql-42.7.1.jar Main.java```
+4. Change ```STUDENT_ID``` and ```STUDENT_NUMBER``` in ```Main.java```
+5. Run ```java -cp postgresql-42.7.1.jar Main.java```
