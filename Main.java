@@ -1,4 +1,3 @@
-import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
@@ -6,7 +5,6 @@ public class Main {
     public static void main(String[] args) {
         BlogDAO db = new BlogDAO();
         BlogService service = new BlogService();
-        Scanner sc = new Scanner(System.in);
 
         db.refresh();
 
