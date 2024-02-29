@@ -1,7 +1,5 @@
 import java.util.Scanner;
 
-import domain.User;
-
 public class BlogService {
 
     public void addUser() {
@@ -16,7 +14,7 @@ public class BlogService {
         int userAge = Integer.valueOf(sc.nextLine());
         System.out.println();
 
-        db.createUser(new User(userName, userAge));
+        db.createUser(userName, userAge);
     }
 
     public void printUsers() {

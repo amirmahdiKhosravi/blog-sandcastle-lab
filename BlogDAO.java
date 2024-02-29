@@ -3,8 +3,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import domain.User;
-
 public class BlogDAO {
 
     public void refresh() {
@@ -26,10 +24,10 @@ public class BlogDAO {
         }
     }
 
-    public long createUser(User user) {
+    public long createUser(String userName, int userAge) {
         /*-----------------------------------------------------------------*/
         String sql = String.format("INSERT INTO users (name, age) VALUES ('%s', %d) RETURNING ID",
-                user.name, user.age);
+                userName, userAge);
         /*-----------------------------------------------------------------*/
 
         try {
