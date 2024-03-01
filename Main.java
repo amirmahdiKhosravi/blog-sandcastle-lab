@@ -36,6 +36,18 @@ public class Main {
                     service.printArticles();
                     break;
 
+                case 7:
+                    service.deleteUser();
+                    break;
+
+                case 8:
+                    service.deleteTag();
+                    break;
+
+                case 9:
+                    service.deleteArticle();
+                    break;
+
                 default:
                     break;
             }
@@ -47,9 +59,10 @@ public class Main {
     }
 
     private static int choices() {
-        System.out.println("1. Add User");
-        System.out.println("2. Add Tag");
-        System.out.println("3. Add Article");
+        System.out.println();
+        System.out.println("1. Add User    \t\t\t 7. Delete User");
+        System.out.println("2. Add Tag     \t\t\t 8. Delete Tag");
+        System.out.println("3. Add Article \t\t\t 9. Delete Article");
         System.out.println();
         System.out.println("4. Print Users");
         System.out.println("5. Print Tags");

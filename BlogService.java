@@ -19,7 +19,23 @@ public class BlogService {
 
     public void printUsers() {
         BlogDAO db = new BlogDAO();
+        System.out.println("Current Users");
         db.printUsers();
+    }
+
+    public void deleteUser() {
+        BlogDAO db = new BlogDAO();
+        printUsers();
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter User ID to DELETE: ");
+        long userId = processInput(sc.nextLine());
+        if (userId == 0) {
+            System.out.println("FAILED: Invalid Input");
+            return;
+        }
+
+        db.deleteUser(userId);
     }
 
     public void addTag() {
@@ -37,7 +53,23 @@ public class BlogService {
 
     public void printTags() {
         BlogDAO db = new BlogDAO();
+        System.out.println("Current Tags");
         db.printTags();
+    }
+
+    public void deleteTag() {
+        BlogDAO db = new BlogDAO();
+        printTags();
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Tag ID to DELETE: ");
+        long tagId = processInput(sc.nextLine());
+        if (tagId == 0) {
+            System.out.println("FAILED: Invalid Input");
+            return;
+        }
+
+        db.deleteTag(tagId);
     }
 
     public void addArticle() {
@@ -90,8 +122,13 @@ public class BlogService {
 
     public void printArticles() {
         BlogDAO db = new BlogDAO();
-
+        System.out.println("Current Articles");
         db.printArticles();
+    }
+
+    public void deleteArticle() {
+        // TODO
+        /* Add this feature. Think about what you need to do. */
     }
 
     private long processInput(String inp) {

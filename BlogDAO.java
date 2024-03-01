@@ -107,6 +107,7 @@ public class BlogDAO {
             Connection c = Helper.getConnection();
 
             /* Insert into 'article' table */
+            /*-----------------------------------------------------------------*/
             String articleSql = String.format(
                     "INSERT INTO article (user_id, text)" +
                             " VALUES (" +
@@ -115,6 +116,7 @@ public class BlogDAO {
                             " )" +
                             " RETURNING id",
                     userId, articleBody);
+            /*-----------------------------------------------------------------*/
 
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery(articleSql);
@@ -124,6 +126,7 @@ public class BlogDAO {
             /* 'article' entry completed */
 
             /* Insert into 'title' table */
+            /*-----------------------------------------------------------------*/
             String titleSql = String.format(
                     "INSERT INTO title (text, article_id)" +
                             " VALUES (" +
@@ -131,6 +134,7 @@ public class BlogDAO {
                             "     %d" +
                             " )",
                     articleTitle, articleId);
+            /*-----------------------------------------------------------------*/
 
             stmt = c.createStatement();
             stmt.executeUpdate(titleSql);
@@ -139,6 +143,8 @@ public class BlogDAO {
 
             if (tagIds.length != 0) {
                 /* Insert into 'tag_article_mapping' table */
+
+                /*---------------------------------------------------------------------------------*/
                 String mapping = "";
                 for (int i = 0; i < tagIds.length; i++) {
                     mapping += String.format("(%d, %d)", articleId, tagIds[i]);
@@ -150,6 +156,7 @@ public class BlogDAO {
 
                 String tagArticleMappingSql = String.format(
                         "INSERT INTO tag_article_mapping (article_id, tag_id) VALUES %s", mapping);
+                /*----------------------------------------------------------------------------------*/
 
                 stmt = c.createStatement();
                 stmt.executeUpdate(tagArticleMappingSql);
@@ -210,6 +217,48 @@ public class BlogDAO {
 
             rs.close();
             stmt.close();
+            c.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteUser(long userId) {
+        /*-----------------------------------------------------------------*/
+        String sql = String.format("DELETE FROM users WHERE id = %d", userId);
+        /*-----------------------------------------------------------------*/
+
+        try {
+            Connection c = Helper.getConnection();
+            Statement stmt = c.createStatement();
+            stmt.executeUpdate(sql);
+
+            System.out.println("Delete successful");
+
+            stmt.close();
+            c.commit();
+            c.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteTag(long tagId) {
+        /*-----------------------------------------------------------------*/
+        String sql = String.format("DELETE FROM tag WHERE id = %d", tagId);
+        /*-----------------------------------------------------------------*/
+
+        try {
+            Connection c = Helper.getConnection();
+            Statement stmt = c.createStatement();
+            stmt.executeUpdate(sql);
+
+            System.out.println("Delete successful");
+
+            stmt.close();
+            c.commit();
             c.close();
 
         } catch (SQLException e) {
