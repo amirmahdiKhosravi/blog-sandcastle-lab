@@ -127,8 +127,8 @@ public class BlogService {
     }
 
     public void deleteArticle() {
-        // TODO
         /* Add this feature. Think about what you need to do. */
+        System.out.println("//// CONSTRUCTION IN PROGRESS ////");
     }
 
     private long processInput(String inp) {
