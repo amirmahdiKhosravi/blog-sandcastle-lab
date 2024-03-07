@@ -26,7 +26,7 @@ public class BlogDAO {
 
     public long createUser(String userName, int userAge) {
         /*-----------------------------------------------------------------*/
-        String sql = String.format("INSERT INTO users (name, age) VALUES ('%s', %d) RETURNING ID",
+        String sql = String.format("<ADD YOUR SQL HERE>",
                 userName, userAge);
         /*-----------------------------------------------------------------*/
 
@@ -76,7 +76,7 @@ public class BlogDAO {
 
     public long createTag(String tag) {
         /*-----------------------------------------------------------------*/
-        String sql = String.format("INSERT INTO tag (text) VALUES ('%s') RETURNING id", tag);
+        String sql = String.format("<ADD YOUR SQL HERE>", tag);
         /*-----------------------------------------------------------------*/
 
         try {
@@ -109,12 +109,7 @@ public class BlogDAO {
             /* Insert into 'article' table */
             /*-----------------------------------------------------------------*/
             String articleSql = String.format(
-                    "INSERT INTO article (user_id, text)" +
-                            " VALUES (" +
-                            "    %d," +
-                            "   '%s'" +
-                            " )" +
-                            " RETURNING id",
+                    "ADD YOUR SQL HERE",
                     userId, articleBody);
             /*-----------------------------------------------------------------*/
 
@@ -128,11 +123,7 @@ public class BlogDAO {
             /* Insert into 'title' table */
             /*-----------------------------------------------------------------*/
             String titleSql = String.format(
-                    "INSERT INTO title (text, article_id)" +
-                            " VALUES (" +
-                            "    '%s'," +
-                            "     %d" +
-                            " )",
+                    "<ADD YOUR SQL HERE>",
                     articleTitle, articleId);
             /*-----------------------------------------------------------------*/
 
@@ -226,7 +217,7 @@ public class BlogDAO {
 
     public void deleteUser(long userId) {
         /*-----------------------------------------------------------------*/
-        String sql = String.format("DELETE FROM users WHERE id = %d", userId);
+        String sql = String.format("<ADD YOUR SQL HERE>", userId);
         /*-----------------------------------------------------------------*/
 
         try {
@@ -247,7 +238,7 @@ public class BlogDAO {
 
     public void deleteTag(long tagId) {
         /*-----------------------------------------------------------------*/
-        String sql = String.format("DELETE FROM tag WHERE id = %d", tagId);
+        String sql = String.format("<ADD YOUR SQL HERE>", tagId);
         /*-----------------------------------------------------------------*/
 
         try {
