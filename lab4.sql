@@ -1,3 +1,5 @@
+-- Active: 1710817928357@@127.0.0.1@5432@kv20kh@public
+-- *******************************************
 -- Drop any previous tables
 
 DROP TABLE IF EXISTS article;
@@ -144,10 +146,11 @@ VALUES
     ('Earl', 'Foxwell', 55);
 
 -----------------------------------------------------------------
+-- E is there to deal with escape character',
 INSERT INTO article (user_id, text, location, date)
 VALUES (
     2,
-    E'Who doesn\'t love to travel?', -- E is there to deal with escape character
+    E'Who does not love to travel?',
     'Niagara Falls, ON',
     now()
 );
@@ -183,3 +186,70 @@ FROM users u
 LEFT JOIN article a ON a.user_id = u.id
 GROUP BY u.first_name
 ORDER BY article_count DESC;
+
+-- Upto line 187, we created some demo data so that
+-- we can use those for Lab 4.
+
+-- Views
+-----------------------------------------------------------------
+
+CREATE VIEW article_list AS
+    SELECT 
+        ti.text AS title,
+        a.text AS text, 
+        a.location AS location, 
+        u.first_name AS author, 
+        string_agg(t.text, ' ,') AS tags 
+    FROM article a
+    JOIN users u ON a.user_id = u.id
+    JOIN tag_article_mapping tam ON a.id = tam.article_id
+    JOIN tag t ON t.id = tam.tag_id
+    JOIN title ti ON ti.article_id = a.id
+    GROUP BY ti.text, a.text, a.location, u.first_name;
+
+SELECT * FROM article_list;
+
+-- Window functions
+-----------------------------------------------------------
+
+-- Just prints the average title length of each location, 
+-- but we've lost individual article's data. Whatever you
+-- now add in the select, it needs to be added in the group by.
+SELECT location, avg(length(title))
+FROM article_list
+GROUP BY location;
+
+-- To retain each row's data, while having some aggregator
+-- function based on some other criteria (location, in this case).
+SELECT location, avg(length(title)) 
+OVER (PARTITION BY location)
+FROM article_list;
+
+-- Inheritance
+---------------------------------------------------------------
+
+SELECT * from users;
+
+CREATE TABLE admin (
+    key VARCHAR(256)
+) INHERITS (users);
+
+-- Procedure (it does not have return value), for return value,
+-- use Function
+---------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE add_user (
+    fname VARCHAR(50),
+    lname VARCHAR(50),
+    uage INT
+)
+LANGUAGE SQL
+AS 
+$$
+INSERT INTO users (first_name, last_name, age) 
+VALUES (fname, lname, uage)
+$$;
+
+CALL add_user('Dave', 'Bockus', 999);
+
+SELECT * FROM users;
